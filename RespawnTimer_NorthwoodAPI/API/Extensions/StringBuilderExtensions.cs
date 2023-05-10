@@ -38,9 +38,9 @@
 
         private static StringBuilder SetMinutesAndSeconds(this StringBuilder builder)
         {
-            TimeSpan time = TimeSpan.FromSeconds(RespawnManager.Singleton._timeForNextSequence - RespawnManager.Singleton._stopwatch.Elapsed.TotalSeconds);
+            TimeSpan time = TimeSpan.FromSeconds(RespawnManager.Singleton.TimeTillRespawn);
             
-            if (RespawnManager.Singleton._curSequence is RespawnManager.RespawnSequencePhase.PlayingEntryAnimations or RespawnManager.RespawnSequencePhase.SpawningSelectedTeam || !Current.Properties.TimerOffset)
+            if (RespawnManager.CurrentSequence() is RespawnManager.RespawnSequencePhase.PlayingEntryAnimations or RespawnManager.RespawnSequencePhase.SpawningSelectedTeam || !Current.Properties.TimerOffset)
             {
                 int minutes = (int)time.TotalSeconds / 60;
                 builder.Replace("{minutes}", $"{(Current.Properties.LeadingZeros && minutes < 10 ? "0" : string.Empty)}{minutes}");
@@ -50,7 +50,7 @@
             }
             else
             {
-                int offset = RespawnTokensManager.Counters[1].Amount >= 50 ? 18 : 14;
+                int offset = Respawn.NtfTickets >= 50 ? 18 : 14;
                 
                 int minutes = (int)(time.TotalSeconds + offset) / 60;
                 builder.Replace("{minutes}", $"{(Current.Properties.LeadingZeros && minutes < 10 ? "0" : string.Empty)}{minutes}");
@@ -84,8 +84,8 @@
         private static StringBuilder SetSpectatorCountAndTickets(this StringBuilder builder, int? spectatorCount = null)
         {
             builder.Replace("{spectators_num}", spectatorCount?.ToString() ?? Player.GetPlayers().Count(x => x.Role == RoleTypeId.Spectator && !x.IsOverwatchEnabled).ToString());
-            builder.Replace("{ntf_tickets_num}", Mathf.Round(RespawnTokensManager.Counters[1].Amount).ToString());
-            builder.Replace("{ci_tickets_num}", Mathf.Round(RespawnTokensManager.Counters[0].Amount).ToString());
+            builder.Replace("{ntf_tickets_num}", Mathf.Round(Respawn.NtfTickets).ToString());
+            builder.Replace("{ci_tickets_num}", Mathf.Round(Respawn.ChaosTickets).ToString());
 
             return builder;
         }
