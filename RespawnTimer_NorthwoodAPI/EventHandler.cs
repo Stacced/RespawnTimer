@@ -62,7 +62,7 @@
                     ShowHint(player, text, 1.25f);
                 }
 
-            } while (!RoundSummary.singleton._roundEnded);
+            } while (RoundSummary.RoundInProgress());
         }
 
         public void ShowHint(Player player, string message, float duration = 3f)

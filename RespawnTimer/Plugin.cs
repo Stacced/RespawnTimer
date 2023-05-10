@@ -33,6 +33,7 @@
 
                 File.Create(Path.Combine(templateDirectory, "TimerBeforeSpawn.txt"));
                 File.Create(Path.Combine(templateDirectory, "TimerDuringSpawn.txt"));
+
                 File.WriteAllText(Path.Combine(templateDirectory, "Properties.yml"), Loader.Serializer.Serialize(new Properties()));
 
                 string hintsPath = Path.Combine(templateDirectory, "Hints.txt");
@@ -89,7 +90,7 @@
 
         public override string Name => "RespawnTimer";
         public override string Author => "Michal78900";
-        public override Version Version => new(4, 0, 0);
-        public override Version RequiredExiledVersion => new(6, 0, 0);
+        public override Version Version => new(5, 0, 0);
+        public override Version RequiredExiledVersion => new(7, 0, 0);
     }
 }

@@ -66,7 +66,7 @@
         {
             StringBuilder.Clear();
             StringBuilder.Append(
-                RespawnManager.Singleton._curSequence is not RespawnManager.RespawnSequencePhase.PlayingEntryAnimations or RespawnManager.RespawnSequencePhase.SpawningSelectedTeam
+                RespawnManager.CurrentSequence() is not RespawnManager.RespawnSequencePhase.PlayingEntryAnimations or RespawnManager.RespawnSequencePhase.SpawningSelectedTeam
                     ? BeforeRespawnString
                     : DuringRespawnString);
 
